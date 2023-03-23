@@ -3,6 +3,7 @@ import { Row, Col, Form, Button } from "react-bootstrap";
 import emailjs from "@emailjs/browser";
 import contactImg from "../assets/img/contact-img.svg";
 
+
 function Contact() {
   const formInitialDetails = {
     firstName: "",
@@ -27,10 +28,10 @@ function Contact() {
 
     emailjs
       .sendForm(
-        "service_qqolnkw",
-        "template_hb4vczk",
+        process.env.REACT_APP_SERVICE_ID,
+        process.env.REACT_APP_TEMPLATE_ID,
         form.current,
-        "KrTQ9wINqsVNyc2da"
+        process.env.REACT_APP_PUBLIC_KEY
       )
       .then(
         (result) => {
