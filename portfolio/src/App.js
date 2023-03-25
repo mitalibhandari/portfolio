@@ -8,7 +8,7 @@ import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
-require('dotenv').config({ path: '../.env' });
+// require('dotenv').config({ path: '../.env' });
 
 function App() {
   return (

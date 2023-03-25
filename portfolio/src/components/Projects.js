@@ -21,8 +21,8 @@ const ProjectCard = ({ title, description, imgUrl, gitUrl, tags }) => {
             className="proj-img"
             src={imgUrl}
             alt=""
-            height={300}
-            width={380}
+            height={280}
+            width={350}
             class="my-2"
           />
           <span>{description}</span>
@@ -54,7 +54,6 @@ function Projects() {
                 >
                   <h2>Projects</h2>
                   <p>
-                    {" "}
                     Following projects showcases my skills and experience
                     through real-world examples of my work. Each project is
                     briefly described with links to code repositories in it. It

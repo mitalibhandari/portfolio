@@ -1,8 +1,7 @@
 import React, { useRef, useState } from "react";
-import { Row, Col, Form, Button } from "react-bootstrap";
+import { Row, Col, Form, Button, Alert } from "react-bootstrap";
 import emailjs from "@emailjs/browser";
 import contactImg from "../assets/img/contact-img.svg";
-
 
 function Contact() {
   const formInitialDetails = {
@@ -13,6 +12,9 @@ function Contact() {
   };
 
   const [formDetails, setFormDetails] = useState(formInitialDetails);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
 
   const onFormUpdate = (category, value) => {
     setFormDetails({
@@ -25,6 +27,7 @@ function Contact() {
 
   const sendEmail = (e) => {
     e.preventDefault();
+    setLoading(true);
 
     emailjs
       .sendForm(
@@ -36,9 +39,13 @@ function Contact() {
       .then(
         (result) => {
           console.log(result.text);
+          setLoading(false);
+          setSuccess(true);
         },
         (error) => {
           console.log(error.text);
+          setLoading(false);
+          setError(true);
         }
       );
   };
@@ -63,7 +70,6 @@ function Contact() {
                 onChange={(e) => onFormUpdate("firstName", e.target.value)}
               ></Form.Control>
             </Form.Group>
-
             <Form.Group controlId="lastName">
               <Form.Control
                 required
@@ -74,7 +80,6 @@ function Contact() {
                 onChange={(e) => onFormUpdate("lastName", e.target.value)}
               ></Form.Control>
             </Form.Group>
-
             <Form.Group controlId="email">
               <Form.Control
                 required
@@ -85,7 +90,6 @@ function Contact() {
                 onChange={(e) => onFormUpdate("email", e.target.value)}
               ></Form.Control>
             </Form.Group>
-
             <Form.Group controlId="message">
               <Form.Control
                 as="textarea"
@@ -95,10 +99,21 @@ function Contact() {
                 onChange={(e) => onFormUpdate("message", e.target.value)}
               ></Form.Control>
             </Form.Group>
-
             <Button type="submit">
-              <span>Send</span>
+              <span>{loading ? "Sending..." : "Send"}</span>
             </Button>
+            {success && (
+              <Col>
+                <Alert variant="success">
+                  Thank you. I will get back to you as soon as possible.
+                </Alert>
+              </Col>
+            )}
+            {error && (
+              <Col>
+                <Alert variant="danger">Something went wrong.</Alert>
+              </Col>
+            )}
           </Form>
         </Col>
       </Row>
